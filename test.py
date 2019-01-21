@@ -8,6 +8,7 @@ SIZE = WIDTH, HEIGHT = 1280, 960
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 LIGHT_GRAY = (220, 220, 220)
+DARK_GRAY = (120, 120, 120)
 
 SCREEN = pygame.display.set_mode(SIZE)
 
@@ -15,13 +16,16 @@ HEX_SIZE = 35
 MAP_RADIUS = 6
 MAP = []
 
-LAYOUT = hlib.Layout(hlib.layout_flat, hlib.Point(HEX_SIZE, HEX_SIZE), hlib.Point(WIDTH/2, HEIGHT/2))
-
 for q in range(-MAP_RADIUS, MAP_RADIUS+1): # From redblobgames
     r1 = max(-MAP_RADIUS, -q - MAP_RADIUS)
     r2 = min(MAP_RADIUS, -q + MAP_RADIUS)
     for r in range(r1, r2+1):
         MAP.append(hlib.Hex(q, r, -q-r))
+
+LAYOUT = hlib.Layout(hlib.layout_flat, hlib.Point(HEX_SIZE, HEX_SIZE), hlib.Point(WIDTH/2, HEIGHT/2))
+
+selected = []
+
 
 def flat_hex_corner(center, size, i): # From https://www.redblobgames.com/grids/hexagons/
     angle_deg = 60 * i
@@ -41,14 +45,23 @@ def mouse_to_hex(mouse):
     return hlib.hex_round(hlib.pixel_to_hex(LAYOUT, mouse_to_point(mouse)))
 
 while 1:
+    mouse_released = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-    
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_released = True
+
     SCREEN.fill(WHITE)
-    if mouse_to_hex(pygame.mouse.get_pos()) in MAP:
-        draw_hex(LAYOUT, mouse_to_hex(pygame.mouse.get_pos()), width=0, color=LIGHT_GRAY)
-    
+    hovered = mouse_to_hex(pygame.mouse.get_pos())
+    if hovered in MAP:
+        if mouse_released:
+            if hovered in selected:
+                selected.remove(hovered)
+            else:
+                selected.append(hovered)
+        draw_hex(LAYOUT, hovered, width=0, color=LIGHT_GRAY)
+
+    [draw_hex(LAYOUT, tile, width=0, color=DARK_GRAY) for tile in selected]
     [draw_hex(LAYOUT, tile) for tile in MAP]
-    print()
     pygame.display.flip()
