@@ -1,23 +1,10 @@
 {
-    "python.pythonPath": "/usr/bin/python3",
-    "files.associations": {
-        "__config": "cpp",
-        "__nullptr": "cpp",
-        "cstddef": "cpp",
-        "exception": "cpp",
-        "initializer_list": "cpp",
-        "new": "cpp",
-        "stdexcept": "cpp",
-        "type_traits": "cpp",
-        "typeinfo": "cpp",
-        "algorithm": "cpp",
-        "cmath": "cpp"
-    },
-    "python.linting.pylintEnabled": true,
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3",
+    "python.linting.pylintEnabled": false,
     "python.linting.pep8Enabled": false,
     "python.linting.enabled": true,
     "python.linting.pylintArgs": [
         "--unsafe-load-any-extension=y"
-    ]
-    
+    ],
+    "python.linting.flake8Enabled": true,
 }
