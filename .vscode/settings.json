@@ -1,10 +1,9 @@
 {
     "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.7/bin/python3",
-    "python.linting.pylintEnabled": false,
-    "python.linting.pep8Enabled": false,
+    "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.linting.pylintArgs": [
-        "--unsafe-load-any-extension=y"
+        "--unsafe-load-any-extension=y",
+        "--disable=C"
     ],
-    "python.linting.flake8Enabled": true,
 }

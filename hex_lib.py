@@ -2,6 +2,7 @@ from __future__ import division
 from __future__ import print_function
 import math
 import collections
+import tile_lib
 
 # This file is in two parts, both from http://www.redblobgames.com/grid/hexagons.
 # The first section are helper functions that I have written
@@ -18,6 +19,13 @@ def mouse_to_point(mouse):
 def mouse_to_hex(mouse, layout):
     return hex_round(pixel_to_hex(layout, mouse_to_point(mouse)))
 
+
+def mouse_to_tile(mouse, layout, tile_map):
+    _hex = hex_round(pixel_to_hex(layout, mouse_to_point(mouse)))
+    for tile in tile_map:
+        if tile.hex == _hex:
+            return tile
+
 # From tutorial
 
 
@@ -27,7 +35,7 @@ def generate_map(radius):
         r1 = max(-radius, -q - radius)
         r2 = min(radius, -q + radius)
         for r in range(r1, r2+1):
-            _map.append(Hex(q, r, -q-r))
+            _map.append(tile_lib.Tile(Hex(q, r, -q-r)))
     return _map
 
 
