@@ -26,9 +26,15 @@ def mouse_to_tile(mouse, layout, tile_map):
         if tile.hex == _hex:
             return tile
 
+
+def tile_is_neighbor(tile, neighbor):
+    for direction in hex_directions:
+        if neighbor.hex == hex_add(tile.hex, direction):
+            return True
+    return False
+
+
 # From tutorial
-
-
 def generate_map(radius):
     _map = []
     for q in range(-radius, radius+1):
